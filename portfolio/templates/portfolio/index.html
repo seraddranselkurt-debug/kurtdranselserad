@@ -1,0 +1,288 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>{{ data.name }} — Portfolio</title>
+<meta name="description" content="{{ data.tagline }}"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+</head>
+<body>
+
+<!-- ══════════ NAVBAR ══════════ -->
+<nav id="navbar">
+  <a href="#home" class="nav-brand">{{ data.name }}</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#home"      class="nav-a active">Home</a></li>
+    <li><a href="#about"     class="nav-a">About</a></li>
+    <li><a href="#skills"    class="nav-a">Skills</a></li>
+    <li><a href="#projects"  class="nav-a">Projects</a></li>
+    <li><a href="#education" class="nav-a">Education</a></li>
+    <li><a href="#contact"   class="nav-a">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="theme-btn" id="themeToggle" aria-label="Toggle dark mode">🌙</button>
+    <button class="hamburger" id="hamburger" aria-label="Menu">☰</button>
+  </div>
+</nav>
+
+<!-- ══════════ HERO ══════════ -->
+<section id="home" class="hero-section">
+  <div class="hero-blob hero-blob-1"></div>
+  <div class="hero-blob hero-blob-2"></div>
+  <div class="hero-inner">
+    <div class="hero-text">
+      <p class="hero-greeting">
+        <span class="greeting-line"></span>
+        Welcome to my portfolio
+      </p>
+      <h1 class="hero-name">{{ data.name }}</h1>
+      <p class="hero-title">{{ data.title }}</p>
+      <p class="hero-tagline">{{ data.tagline }}</p>
+      <div class="hero-btns">
+        <a href="{{ data.resume_url }}" class="btn btn-primary" download>
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+            <path d="M12 3v13M7 11l5 5 5-5"/><path d="M3 20h18"/>
+          </svg>
+          Download Resume
+        </a>
+        <a href="#contact" class="btn btn-outline">Contact Me</a>
+      </div>
+    </div>
+    <div class="hero-photo-col">
+      <div class="hero-frame">
+        <!-- ✏️ Replace with your own photo: <img src="{% static 'images/profile.jpg' %}" ...> -->
+        <img
+          src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?w=600&q=80"
+          alt="{{ data.name }}"
+          class="hero-photo"
+        />
+        <span class="hero-badge">Open to Work ✦</span>
+      </div>
+    </div>
+  </div>
+  <a href="#about" class="scroll-cue" aria-label="Scroll down">
+    <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <path d="M12 5v14M5 12l7 7 7-7"/>
+    </svg>
+    <span>Scroll</span>
+  </a>
+</section>
+
+<!-- ══════════ DRAG HINT ══════════ -->
+<div class="drag-hint">
+  <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+    <circle cx="9" cy="5" r="1" fill="currentColor"/><circle cx="15" cy="5" r="1" fill="currentColor"/>
+    <circle cx="9" cy="12" r="1" fill="currentColor"/><circle cx="15" cy="12" r="1" fill="currentColor"/>
+    <circle cx="9" cy="19" r="1" fill="currentColor"/><circle cx="15" cy="19" r="1" fill="currentColor"/>
+  </svg>
+  Drag the ⠿ handle to reorder sections
+</div>
+
+<!-- ══════════ SORTABLE WRAPPER ══════════ -->
+<div id="sortable">
+
+<!-- ─── ABOUT ─────────────────────────── -->
+<div class="sortable-wrap" data-id="about">
+  <div class="drag-handle" title="Drag to reorder">⠿</div>
+  <section id="about" class="section alt-bg">
+    <div class="inner">
+      <p class="eyebrow reveal">About Me</p>
+      <h2 class="section-title reveal d1">A little about <em>who I am</em></h2>
+      <div class="rule reveal d1"></div>
+      <div class="about-grid">
+        <div class="about-img-col reveal">
+          <div class="about-img-accent"></div>
+          <!-- ✏️ Replace with your secondary photo -->
+          <img
+            src="https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?w=600&q=80"
+            alt="Working"
+            class="about-img"
+          />
+        </div>
+        <div class="about-text-col reveal d2">
+          {% for para in data.bio %}
+          <p class="bio-para">{{ para }}</p>
+          {% endfor %}
+          <div class="facts-grid">
+            {% for label, value in data.facts %}
+            <div class="fact-card">
+              <span class="fact-label">{{ label }}</span>
+              <span class="fact-value">{{ value }}</span>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ─── SKILLS ────────────────────────── -->
+<div class="sortable-wrap" data-id="skills">
+  <div class="drag-handle" title="Drag to reorder">⠿</div>
+  <section id="skills" class="section">
+    <div class="inner">
+      <p class="eyebrow reveal">What I Know</p>
+      <h2 class="section-title reveal d1">Skills &amp; <em>Technologies</em></h2>
+      <div class="rule reveal d1"></div>
+      <div class="skills-list">
+        {% for cat in data.skills %}
+        <div class="reveal d{{ forloop.counter }}">
+          <p class="cat-label">{{ cat.category }}</p>
+          <div class="pills-row">
+            {% for skill in cat.items %}
+            <span class="pill {{ cat.color }}">{{ skill }}</span>
+            {% endfor %}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ─── PROJECTS ──────────────────────── -->
+<div class="sortable-wrap" data-id="projects">
+  <div class="drag-handle" title="Drag to reorder">⠿</div>
+  <section id="projects" class="section alt-bg">
+    <div class="inner">
+      <p class="eyebrow reveal">What I've Built</p>
+      <h2 class="section-title reveal d1">Featured <em>Projects</em></h2>
+      <div class="rule reveal d1"></div>
+      <div class="projects-grid">
+        {% for p in data.projects %}
+        <div class="project-card reveal d{{ forloop.counter }}">
+          <div class="proj-thumb">
+            {% if p.thumb_img %}
+              <img src="{% static p.thumb_img %}" alt="{{ p.title }}" style="width:100%;height:100%;object-fit:cover;"/>
+            {% else %}
+              <span class="thumb-emoji">{{ p.thumb_emoji }}</span>
+            {% endif %}
+          </div>
+          <div class="proj-body">
+            <h3 class="proj-title">{{ p.title }}</h3>
+            <p class="proj-desc">{{ p.desc }}</p>
+            <div class="tech-tags">
+              {% for t in p.stack %}
+              <span class="tech-tag">{{ t }}</span>
+              {% endfor %}
+            </div>
+            <div class="proj-links">
+              <a href="{{ p.demo_url }}" class="proj-btn" target="_blank" rel="noopener">🔗 Live Demo</a>
+              <a href="{{ p.github_url }}" class="proj-btn" target="_blank" rel="noopener">⬡ GitHub</a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ─── EDUCATION ─────────────────────── -->
+<div class="sortable-wrap" data-id="education">
+  <div class="drag-handle" title="Drag to reorder">⠿</div>
+  <section id="education" class="section">
+    <div class="inner">
+      <p class="eyebrow reveal">Background</p>
+      <h2 class="section-title reveal d1">Education &amp; <em>Certifications</em></h2>
+      <div class="rule reveal d1"></div>
+      <div class="timeline">
+        {% for edu in data.education %}
+        <div class="tl-item reveal d{{ forloop.counter }}">
+          <div class="tl-dot"></div>
+          <div class="tl-card">
+            <p class="tl-year">{{ edu.year }}</p>
+            <h3 class="tl-degree">{{ edu.degree }}</h3>
+            <p class="tl-school">{{ edu.school }}</p>
+            <p class="tl-detail">{{ edu.detail }}</p>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+</div>
+
+</div><!-- /#sortable -->
+
+<!-- ══════════ CONTACT ══════════ -->
+<section id="contact" class="section alt-bg">
+  <div class="inner">
+    <p class="eyebrow reveal">Get In Touch</p>
+    <h2 class="section-title reveal d1">Let's <em>Connect</em></h2>
+    <div class="rule reveal d1"></div>
+    <div class="contact-grid">
+
+      <!-- Info -->
+      <div class="contact-info reveal">
+        <a href="mailto:{{ data.email }}" class="ci-row">
+          <div class="ci-icon">📧</div>
+          <div>
+            <p class="ci-label">Email</p>
+            <p class="ci-val">{{ data.email }}</p>
+          </div>
+        </a>
+        <a href="{{ data.linkedin }}" target="_blank" rel="noopener" class="ci-row">
+          <div class="ci-icon">💼</div>
+          <div>
+            <p class="ci-label">LinkedIn</p>
+            <p class="ci-val">{{ data.linkedin|slice:"8:" }}</p>
+          </div>
+        </a>
+        <a href="{{ data.github }}" target="_blank" rel="noopener" class="ci-row">
+          <div class="ci-icon">⬡</div>
+          <div>
+            <p class="ci-label">GitHub</p>
+            <p class="ci-val">{{ data.github|slice:"8:" }}</p>
+          </div>
+        </a>
+        <div class="ci-row">
+          <div class="ci-icon">📍</div>
+          <div>
+            <p class="ci-label">Location</p>
+            <p class="ci-val">{{ data.location }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <form class="contact-form reveal d2" id="contactForm" novalidate>
+        {% csrf_token %}
+        <div class="form-row-2">
+          <div class="form-group">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" name="name" class="form-input" placeholder="Jane Smith" required/>
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" class="form-input" placeholder="jane@example.com" required/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" class="form-input form-textarea" placeholder="Tell me about your project..." required></textarea>
+        </div>
+        <button type="submit" class="form-submit" id="submitBtn">Send Message ✈</button>
+        <p class="form-status" id="formStatus"></p>
+      </form>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer>
+  <p>Crafted with ❤️ &amp; Django by <strong>{{ data.name }}</strong> · {{ data.location }}</p>
+  <p style="margin-top:.4rem;font-size:.75rem;opacity:.6">© 2025 All rights reserved</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js"></script>
+<script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>
