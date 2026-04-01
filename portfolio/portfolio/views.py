@@ -29,8 +29,8 @@ PORTFOLIO_DATA = {
     # ── Skills ────────────────────────────────────────────────────
     # You can edit these later as you learn more technologies
     "skills": [
-        {"category": "Languages",      "color": "c-blue",   "items": ["C++", "Python", "JavaScript", "HTML5 / CSS3", "SQL"]},
-        {"category": "Tools & Others", "color": "c-teal",   "items": ["Git", "Visual Studio", "Code::Blocks", "MySQL"]},
+        {"category": "Languages",      "color": "c-blue",   "items": ["C++", "Python", "HTML5 / CSS3", "SQL"]},
+        {"category": "Tools & Others", "color": "c-teal",   "items": ["github", "Visual Studio", "MySQL", "Netbeans"]},
         # Add more categories as you gain experience
     ],
 

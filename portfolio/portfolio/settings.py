@@ -1,19 +1,53 @@
 import os
+from pathlib import Path
 
-# Replace the existing ALLOWED_HOSTS line:
-ALLOWED_HOSTS = [os.environ.get('RENDER_EXTERNAL_HOSTNAME', '*')]
+BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Add WhiteNoise to MIDDLEWARE (after SecurityMiddleware):
-MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # ← add this
-    ...
+SECRET_KEY = os.environ.get('SECRET_KEY', 'my-super-secret-key-12345')
+
+DEBUG = False
+
+ALLOWED_HOSTS = ['kurt111.pythonanywhere.com']
+
+INSTALLED_APPS = [
+    'django.contrib.staticfiles',
+    'portfolio',
 ]
 
-# Add at the bottom:
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+ROOT_URLCONF = 'portfolio.urls'
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [BASE_DIR / 'templates'],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.request',
+                'django.template.context_processors.static',
+            ],
+        },
+    },
+]
+
+WSGI_APPLICATION = 'portfolio.wsgi.application'
+
+LANGUAGE_CODE = 'en-us'
+TIME_ZONE = 'UTC'
+USE_I18N = True
+USE_TZ = True
+
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [BASE_DIR / 'static']
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# Use environment variable for SECRET_KEY in production:
-SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-change-me-in-production-use-env-var')
-
-DEBUG = os.environ.get('DEBUG', 'True') == 'True'
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
