@@ -15,8 +15,7 @@ PORTFOLIO_DATA = {
 
     # ── Contact ───────────────────────────────────────────────────
     "email":      "seradkurtdransel@gmail.com",
-    "linkedIn":   "#",
-    "github":     "#",
+    "github":     "https://github.com/seraddranselkurt-debug/kurtdranselserad",
     "location":   "Pagatban, Bayawan, Negros Oriental",
 
     # ── About ─────────────────────────────────────────────────────
