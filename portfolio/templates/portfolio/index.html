@@ -55,7 +55,6 @@
     </div>
     <div class="hero-photo-col">
       <div class="hero-frame">
-        <!-- : <img src="{% static 'kurt.jpeg' %}" ...> -->
         <img
           src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?w=600&q=80"
           alt="{{ data.name }}"
@@ -96,8 +95,7 @@
       <div class="rule reveal d1"></div>
       <div class="about-grid">
         <div class="about-img-col reveal">
-         < <div class="about-img-accent"></div>
-
+          <div class="about-img-accent"></div>
           <img
             src="https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?w=600&q=80"
             alt="Working"
@@ -230,7 +228,10 @@
         </a>
         <a href="{{ data.linkedin }}" target="_blank" rel="noopener" class="ci-row">
           <div class="ci-icon">💼</div>
-
+          <div>
+            <p class="ci-label">LinkedIn</p>
+            <p class="ci-val">{{ data.linkedin|slice:"8:" }}</p>
+          </div>
         </a>
         <a href="{{ data.github }}" target="_blank" rel="noopener" class="ci-row">
           <div class="ci-icon">⬡</div>
